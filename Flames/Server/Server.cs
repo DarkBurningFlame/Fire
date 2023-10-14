@@ -16,7 +16,6 @@
     permissions and limitations under the Licenses.
  */
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -44,7 +43,7 @@ namespace Flames
 {
     public sealed partial class Server 
     {
-        public Server() { Server.s = this; }
+        public Server() { s = this; }
         
         //True = cancel event
         //Fale = dont cacnel event
@@ -114,13 +113,19 @@ namespace Flames
             Background.QueueOnce(InitTimers);
             Background.QueueOnce(InitRest);
             Background.QueueOnce(InitHeartbeat);
-
+            Background.QueueOnce(SayHello, null, TimeSpan.FromSeconds(10));
             ServerTasks.QueueTasks();
             Background.QueueRepeat(ThreadSafeCache.DBCache.CleanupTask,
                                    null, TimeSpan.FromMinutes(5));
+
         }
         
-        static void ForceEnableTLS() {
+    static void SayHello(SchedulerTask task)
+    {
+        Command.Find("say").Use(Player.Flame, SoftwareNameVersioned + " &Sonline!" );
+        Logger.Log(LogType.SystemActivity, "Hello World!");
+    }
+    static void ForceEnableTLS() {
             // Force enable TLS 1.1/1.2, otherwise checking for updates on Github doesn't work
             try { ServicePointManager.SecurityProtocol |= (SecurityProtocolType)0x300; } catch { }
             try { ServicePointManager.SecurityProtocol |= (SecurityProtocolType)0xC00; } catch { }
@@ -142,7 +147,7 @@ namespace Flames
             EnsureDirectoryExists(Paths.ImportsDir);
             EnsureDirectoryExists("blockdefs");
 #if !MCG_STANDALONE
-            EnsureDirectoryExists(Flames.Modules.Compiling.ICompiler.COMMANDS_SOURCE_DIR); // TODO move to compiling module
+            EnsureDirectoryExists(Modules.Compiling.ICompiler.COMMANDS_SOURCE_DIR); // TODO move to compiling module
 #endif
             EnsureDirectoryExists("text/discord"); // TODO move to discord plugin
         }
@@ -190,7 +195,9 @@ namespace Flames
         static readonly object stopLock = new object();
         static volatile Thread stopThread;
         public static Thread Stop(bool restart, string msg) {
-            Server.shuttingDown = true;
+            Command.Find("say").Use(Player.Flame, SoftwareNameVersioned + " &Sshutting down!");
+            Logger.Log(LogType.Warning, "&fServer is shutting down!");
+            shuttingDown = true;
             lock (stopLock) {
                 if (stopThread != null) return stopThread;
                 stopThread = new Thread(() => ShutdownThread(restart, msg));
@@ -222,7 +229,7 @@ namespace Flames
 
             try {
                 string autoload = SaveAllLevels();
-                if (Server.SetupFinished && !Server.Config.AutoLoadMaps) {
+                if (SetupFinished && !Config.AutoLoadMaps) {
                     File.WriteAllText("text/autoload.txt", autoload);
                 }
             } catch (Exception ex) { Logger.LogError(ex); }
@@ -304,7 +311,7 @@ namespace Flames
         
         public static bool SetMainLevel(string map) {
             OnMainLevelChangingEvent.Call(ref map);
-            string main = mainLevel != null ? mainLevel.name : Server.Config.MainLevel;
+            string main = mainLevel != null ? mainLevel.name : Config.MainLevel;
             if (map.CaselessEq(main)) return false;
             
             Level lvl = LevelInfo.FindExact(map);

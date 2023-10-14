@@ -94,6 +94,12 @@
     <Compile Include="Chat\ChatTokens.cs" />
     <Compile Include="Chat\LineWrapper.cs" />
     <Compile Include="Chat\ProfanityFilter.cs" />
+    <Compile Include="Commands\Added\CmdBotNick.cs" />
+    <Compile Include="Commands\Added\CmdBye.cs" />
+    <Compile Include="Commands\Added\CmdCCBeat.cs" />
+    <Compile Include="Commands\Added\CmdDisconnect.cs" />
+    <Compile Include="Commands\Added\CmdDiscordSay.cs" />
+    <Compile Include="Commands\Added\CmdQuack.cs" />
     <Compile Include="Commands\Alias.cs" />
     <Compile Include="Commands\Bots\CmdBot.cs" />
     <Compile Include="Commands\Bots\CmdBotAI.cs" />
