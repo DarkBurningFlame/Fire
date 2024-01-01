@@ -1,5 +1,5 @@
-/*
-    Copyright 2010 MCSharp team (Modified for use with MCZall/MCLawl/Flames)
+﻿/*
+    Copyright 2010 MCSharp team (Modified for use with MCZall/MCLawl/MCGalaxy)
     
     Dual-licensed under the Educational Community License, Version 2.0 and
     the GNU General Public License, Version 3 (the "Licenses"); you may
@@ -15,7 +15,6 @@
     or implied. See the Licenses for the specific language governing
     permissions and limitations under the Licenses.
  */
-/*
 using System;
 using System.IO;
 using System.Net;
@@ -25,21 +24,16 @@ using Flames.Tasks;
 namespace Flames
 {
     /// <summary> Checks for and applies software updates. </summary>
-    public static class Updater_Old
+    public static class Updater
     {
 
-        public static string SourceURL = "https://github.com/DarkBurningFlame/Fire/";
-        public const string BaseURL = "https://github.com/DarkBurningFlame/Fire/blob/Flame/";
-        public const string UploadsURL = "https://github.com/DarkBurningFlame/Fire/tree/Flame/Uploads";
-        public const string UpdatesURL = "https://github.com/DarkBurningFlame/Fire/raw/Flame/Uploads/";
-        public const string SQLiteURL = "https://github.com/DarkBurningFlame/Fire/raw/Flame/Uploads/sqlite3.dll";
+        public static string SourceURL = "https://github.com/RandomStrangers/Fire/";
+        public const string BaseURL = "https://github.com/RandomStrangers/Fire/blob/Flame/";
+        public const string UploadsURL = "https://github.com/RandomStrangers/Fire/tree/Flame/Uploads";
+        public const string UpdatesURL = "https://github.com/RandomStrangers/Fire/raw/Flame/Uploads/";
+        public const string SQLiteURL = "https://github.com/RandomStrangers/Fire/raw/Flame/Uploads/sqlite3.dll";
         public static string WikiURL = "https://github.com/UnknownShadow200/MCGalaxy";
-
-
-        const string CurrentVersionURL = 
-        "https://github.com/DarkBurningFlame/Fire/blob/Flame/Uploads/current.txt";
-        const string OldVersionURL = 
-        "https://github.com/DarkBurningFlame/Fire/blob/Flame/Uploads/current_version.txt";
+        const string CurrentVersionURL = UpdatesURL + "current.txt";
         const string dllURL = UpdatesURL + "Flames_.dll";
         const string guiURL = UpdatesURL + "Flames.exe";
         const string cliURL = UpdatesURL + "FlamesCLI.exe";
@@ -131,4 +125,4 @@ namespace Flames
             foreach (string path in paths) { AtomicIO.TryDelete(path); }
         }
     }
-}*/
+}

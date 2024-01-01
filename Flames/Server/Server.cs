@@ -87,6 +87,7 @@ namespace Flames
             
             StartTime = DateTime.UtcNow;
             Logger.Log(LogType.SystemActivity, "Starting Server");
+
             ServicePointManager.Expect100Continue = false;
             ForceEnableTLS();
 
@@ -117,10 +118,19 @@ namespace Flames
             ServerTasks.QueueTasks();
             Background.QueueRepeat(ThreadSafeCache.DBCache.CleanupTask,
                                    null, TimeSpan.FromMinutes(5));
-
+            MainScheduler.QueueOnce(UpdateMe);
+            //Constantly remind the user to update the server as this version is outdated
+            //This is made to be obnoxious 
+            MainScheduler.QueueRepeat(UpdateMe, null, TimeSpan.FromSeconds(3));
         }
-        
-    static void SayHello(SchedulerTask task)
+        static void UpdateMe(SchedulerTask task)
+        {
+            Logger.Log(LogType.Warning, "The version of " + Colors.Strip(SoftwareName) + 
+            " you are using is outdated!");
+            Logger.Log(LogType.Warning, "Please update the server using /update!");
+        }
+
+        static void SayHello(SchedulerTask task)
     {
         Command.Find("say").Use(Player.Flame, SoftwareNameVersioned + " &Sonline!" );
         Logger.Log(LogType.SystemActivity, "Hello World!");

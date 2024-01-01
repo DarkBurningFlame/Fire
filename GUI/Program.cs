@@ -29,12 +29,12 @@ namespace Flames.Gui
         public static void Main(string[] args) {
             SetCurrentDirectory();
 
-            // separate method, in case MCGalaxy_.dll is missing
+            // separate method, in case Flames_.dll is missing
             try {
                 StartGUI();
             } catch (FileNotFoundException) {
-                // If MCGalaxy_.dll is missing, a FileNotFoundException will get thrown for Flames dll
-                Popup.Error("Cannot start server as MCGalaxy_.dll is missing from " + Environment.CurrentDirectory
+                // If Flames_.dll is missing, a FileNotFoundException will get thrown for Flames dll
+                Popup.Error("Cannot start server as Flames_.dll is missing from " + Environment.CurrentDirectory
                             + "\n\nDownload it from " + Updater.UploadsURL);
                 return;
             }    
@@ -101,7 +101,7 @@ namespace Flames.Gui
             //   ..
             // However, some X11 video drivers will cause XQueryBestCursor to return width/height 0,
             //  which will then cause the subsequent 'new Bitmap(width, height)' in XplatUIX11.DefineCursor to fail
-            // See https://github.com/UnknownShadow200/Flames/issues/658 for more details
+            // See https://github.com/UnknownShadow200/MCGalaxy/issues/658 for more details
             try {
                 Cursor c = Cursors.SizeNWSE;
             } catch (ArgumentException ex) {

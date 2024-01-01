@@ -28,18 +28,18 @@ namespace Flames.Cli {
         public static void Main(string[] args) {
             SetCurrentDirectory();
 
-            // If MCGalaxy_.dll is missing, a FileNotFoundException will get thrown for Flames dll
+            // If Flames_.dll is missing, a FileNotFoundException will get thrown for Flames dll
             try {
                 EnableCLIMode();
             } catch (FileNotFoundException) {
-                Console.WriteLine("Cannot start server as MCGalaxy_.dll is missing from " + Environment.CurrentDirectory);
+                Console.WriteLine("Cannot start server as Flames_.dll is missing from " + Environment.CurrentDirectory);
                 Console.WriteLine("Download from " + Updater.UploadsURL);
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey(true);
                 return;
             }
             
-            // separate method, in case MCGalaxy_.dll is missing
+            // separate method, in case Flames_.dll is missing
             StartCLI();
         }
         
@@ -77,7 +77,7 @@ namespace Flames.Cli {
                 
                 EnableCLIMode();
                 Server.Start();
-                Console.Title = Server.Config.Name + " - " + Server.SoftwareNameVersioned;
+                Console.Title = Colors.Strip(Server.Config.Name) + " - " + Colors.Strip(Server.SoftwareNameVersioned);
                 Console.CancelKeyPress += OnCancelKeyPress;
 
                 CheckNameVerification();
@@ -167,7 +167,7 @@ namespace Flames.Cli {
         }
 
         static void LogNewerVersionDetected(object sender, EventArgs e) {
-            Write("&cMCGalaxy update available! Update by replacing with the files from " + Updater.UploadsURL);
+            Write(Colors.Strip(Server.SoftwareName) + " update available! Update by replacing with the files from " + Updater.UploadsURL);
         }
         
         static void ConsoleLoop() {

@@ -165,7 +165,7 @@ namespace Flames
         }
         
         static void LogLoaderErrors(ReflectionTypeLoadException ex, StringBuilder sb) {
-            // For errors with loading plugins (e.g. missing dependancy) you get a 
+            // For errors with loading plugins (e.g. missing dependency) you get a 
             //   Message: Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
             // which is pretty useless by itself, so specifically handle this case
             sb.AppendLine("## Loader exceptions ##");

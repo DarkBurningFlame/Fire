@@ -58,9 +58,9 @@ namespace Flames.Gui
   {4} for {0} {3}
 
 Trying to mix two versions is unsupported - you may experience issues";
-            string msg = string.Format(fmt, Server.SoftwareName, 
+            string msg = string.Format(fmt, Colors.Strip(Server.SoftwareName), 
                                        gui_version, AssemblyFile(typeof(Window), "Flames.exe"),
-                                       dll_version, AssemblyFile(typeof(Server), "MCGalaxy_.dll"));
+                                       dll_version, AssemblyFile(typeof(Server), "Flames_.dll"));
             RunAsync(() => Popup.Warning(msg));
         }
         
@@ -80,7 +80,7 @@ Trying to mix two versions is unsupported - you may experience issues";
             if (loaded) return;
             loaded = true;
             
-            Text = "Starting " + Server.SoftwareNameVersioned + "...";
+            Text = "Starting " + Colors.Strip(Server.SoftwareNameVersioned) + "...";
             Show();
             BringToFront();
             WindowState = FormWindowState.Normal;
@@ -92,7 +92,7 @@ Trying to mix two versions is unsupported - you may experience issues";
                 map_cmbType.Items.Add(gen.Theme);
             }
             
-            Text = Server.Config.Name + " - " + Server.SoftwareNameVersioned;
+            Text = Colors.Strip(Server.Config.Name) + " - " + Colors.Strip(Server.SoftwareNameVersioned);
             MakeNotifyIcon();
             
             main_Players.Font = new Font("Calibri", 8.25f);
@@ -299,13 +299,13 @@ Trying to mix two versions is unsupported - you may experience issues";
         void SettingsUpdate() {
             RunOnUI_Async(() => {
                 if (Server.shuttingDown) return;
-                Text = Server.Config.Name + " - " + Server.SoftwareNameVersioned;
+                Text = Colors.Strip(Server.Config.Name) + " - " + Colors.Strip(Server.SoftwareNameVersioned);
                 UpdateNotifyIconText();
             });
         }
 
         public void PopupNotify(string message, ToolTipIcon icon = ToolTipIcon.Info) {
-            notifyIcon.ShowBalloonTip(3000, Server.Config.Name, message, icon);
+            notifyIcon.ShowBalloonTip(3000, Colors.Strip(Server.Config.Name), message, icon);
         }
 
         void UpdateUrl(string s) {

@@ -43,7 +43,7 @@ namespace Flames.Gui {
             adv_chkVerify.Checked    = Server.Config.VerifyNames;
             warnDisabledVerification = true;
             adv_chkCPE.Checked = Server.Config.EnableCPE;       
-            chkUpdates.Checked = Server.Config.CheckForUpdates;
+            chkUpdates.Checked = true;
         }
         
         void ApplyGeneralProps() {
@@ -63,7 +63,7 @@ namespace Flames.Gui {
             
             Server.Config.VerifyNames = adv_chkVerify.Checked;
             Server.Config.EnableCPE = adv_chkCPE.Checked;            
-            Server.Config.CheckForUpdates = chkUpdates.Checked;
+            Server.Config.CheckForUpdates = true;
             //Server.Config.reportBack = ;  //No setting for this?                
         }        
         

@@ -660,6 +660,7 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Server\Maintenance\Backup.cs" />
     <Compile Include="Server\Maintenance\Updater.cs" />
+    <Compile Include="Server\Maintenance\Updater_final.cs" />
     <Compile Include="Server\Maintenance\ZipReader.cs" />
     <Compile Include="Server\Maintenance\ZipWriter.cs" />
     <Compile Include="util\Formatting\Wildcard.cs" />
